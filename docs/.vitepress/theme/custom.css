@@ -1,0 +1,87 @@
+/* Custom CSS for the VitePress site */
+:root {
+  --vp-c-brand: #6366f1;
+  --vp-c-brand-light: #818cf8;
+  --vp-c-brand-lighter: #a5b4fc;
+  --vp-c-brand-dark: #4f46e5;
+  --vp-c-brand-darker: #4338ca;
+}
+
+.custom-block.tip {
+  border-color: var(--vp-c-brand);
+}
+
+.custom-block.warning {
+  border-color: #f59e0b;
+}
+
+.custom-block.danger {
+  border-color: #ef4444;
+}
+
+.custom-block.info {
+  border-color: #3b82f6;
+}
+
+/* Improving code blocks */
+div[class*='language-'] {
+  border-radius: 8px;
+}
+
+/* Better table styling */
+table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+tr:nth-child(2n) {
+  background-color: var(--vp-c-bg-soft);
+}
+
+th, td {
+  border: 1px solid var(--vp-c-divider);
+  padding: 8px 12px;
+}
+
+th {
+  font-weight: 600;
+  background-color: var(--vp-c-bg-soft);
+}
+
+/* Custom layout adjustments */
+.vp-doc h2 {
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.vp-doc h3 {
+  margin-top: 2rem;
+}
+
+/* Custom footer */
+.VPFooter {
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 24px;
+}
+
+/* Class diagram styling */
+.mermaid {
+  background-color: transparent !important;
+}
+
+/* Comparison blocks */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .comparison {
+    grid-template-columns: 1fr;
+  }
+}

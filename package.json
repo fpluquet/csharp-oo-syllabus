@@ -1,0 +1,33 @@
+{
+  "name": "syllabus-csharp-oo",
+  "version": "1.0.0",
+  "description": "Syllabus de Programmation Orientée Objet en C# pour BA1",
+  "type": "module",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "marp": "marp slides/0-introduction.md -w --html --allow-local-files ",
+    "marp:all": "marp slides/all-slides.md -w --html --allow-local-files "
+  },
+  "keywords": [
+    "csharp",
+    "programmation",
+    "oo",
+    "orienté-objet",
+    "syllabus",
+    "HELHa"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mermaid": "^11.6.0",
+    "vitepress": "^1.6.3",
+    "vitepress-plugin-mermaid": "^2.0.17",
+    "@marp-team/marp-cli": "^3.4.0"
+  }
+}
