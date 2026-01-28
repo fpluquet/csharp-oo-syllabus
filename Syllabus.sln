@@ -1,0 +1,38 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{208BA388-4CEE-2CBF-559C-5607C099C1F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "public", "public", "{C5CE47CC-3090-05AA-B96B-ACF06139F76E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "codes", "codes", "{88AE6537-B47D-80EB-E9F0-BB27F22D2AA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "etape1-encapsulation", "etape1-encapsulation", "{88ED08F7-F8A6-CF17-9DD0-8D0EC481F73A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Echecs", "docs\public\codes\etape1-encapsulation\Echecs.csproj", "{CF756217-5087-04D6-3820-C8667EF285FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF756217-5087-04D6-3820-C8667EF285FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF756217-5087-04D6-3820-C8667EF285FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF756217-5087-04D6-3820-C8667EF285FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF756217-5087-04D6-3820-C8667EF285FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5CE47CC-3090-05AA-B96B-ACF06139F76E} = {208BA388-4CEE-2CBF-559C-5607C099C1F8}
+		{88AE6537-B47D-80EB-E9F0-BB27F22D2AA9} = {C5CE47CC-3090-05AA-B96B-ACF06139F76E}
+		{88ED08F7-F8A6-CF17-9DD0-8D0EC481F73A} = {88AE6537-B47D-80EB-E9F0-BB27F22D2AA9}
+		{CF756217-5087-04D6-3820-C8667EF285FC} = {88ED08F7-F8A6-CF17-9DD0-8D0EC481F73A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {71A5F4D5-941A-405C-980A-3FA82E639C3E}
+	EndGlobalSection
+EndGlobal

@@ -40,6 +40,10 @@ Ce cours suppose que vous maîtrisez les bases de C# : variables, types, opérat
 14. [Interfaces Modernes](./14-interfaces-modernes.md) - Implémentation par défaut
 15. [Pattern Matching](./15-pattern-matching.md) - Filtrage par motif
 
+### Partie III - Projet Fil Rouge
+
+16. [Projet : Jeu d'Échecs](./16-projet-echecs.md) - Application complète des concepts OO
+
 ## Synthèse visuelle de la structure OO
 
 ```mermaid

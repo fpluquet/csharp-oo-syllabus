@@ -76,6 +76,27 @@ export default withMermaid(defineConfig({
           { text: 'Pattern Matching', link: '/15-pattern-matching' },
         ]
       },
+      {
+        text: 'Partie III - Projet Fil Rouge',
+        collapsed: false,
+        items: [
+          { text: 'Jeu d\'Échecs en Console', link: '/16-projet-echecs' },
+          { text: '├─ Étape 1 : Encapsulation', link: '/16a-etape1-encapsulation' },
+          { text: '├─ Étape 2 : Héritage', link: '/16b-etape2-heritage' },
+          { text: '├─ Étape 3 : Polymorphisme', link: '/16c-etape3-polymorphisme' },
+          { text: '└─ Étape 4 : Architecture MVC', link: '/16d-etape4-mvc' },
+        ]
+      },
+      {
+        text: 'Télécharger les Codes',
+        collapsed: false,
+        items: [
+          { text: 'Étape 1 : Encapsulation', link: 'https://github.com/fpluquet/csharp-oo-syllabus/tree/main/docs/public/codes/etape1-encapsulation', target: '_blank' },
+          { text: 'Étape 2 : Héritage', link: 'https://github.com/fpluquet/csharp-oo-syllabus/tree/main/docs/public/codes/etape2-heritage', target: '_blank' },
+          { text: 'Étape 3 : Polymorphisme', link: 'https://github.com/fpluquet/csharp-oo-syllabus/tree/main/docs/public/codes/etape3-polymorphisme', target: '_blank' },
+          { text: 'Étape 4 : Architecture MVC', link: 'https://github.com/fpluquet/csharp-oo-syllabus/tree/main/docs/public/codes/etape4-mvc', target: '_blank' },
+        ]
+      },
     ],
 
     footer: {
