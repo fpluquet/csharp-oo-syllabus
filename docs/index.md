@@ -27,16 +27,18 @@ Ce cours suppose que vous maîtrisez les bases de C# : variables, types, opérat
 4. [Encapsulation et Propriétés](./04-encapsulation.md) - Protection et accès aux données
 5. [Membres Statiques](./05-membres-statiques.md) - Données et comportements partagés
 6. [Passage de Paramètres](./06-passage-parametres.md) - ref, out et paramètres optionnels
-7. [Concepts Avancés](./07-concepts-avances.md) - Surcharge d'opérateurs, itérateurs
+7. [Héritage](./07-heritage.md) - Réutilisation de code et hiérarchies
+8. [Polymorphisme](./08-polymorphisme.md) - Comportements polymorphes et virtuels
+9. [Concepts Avancés](./09-concepts-avances.md) - Surcharge d'opérateurs, itérateurs
 
 ### Partie II - Extensions Modernes de l'OO (C# 8.0 à 12.0)
 
-8. [Records](./08-records.md) - Objets immuables et comparaison par valeur
-9. [Primary Constructors](./09-primary-constructors.md) - Syntaxe concise C# 12+
-10. [Nullable Reference Types](./10-nullable-reference-types.md) - Sécurité du null
-11. [Propriétés Init-Only](./11-proprietes-init.md) - Immutabilité contrôlée
-12. [Interfaces Modernes](./12-interfaces-modernes.md) - Implémentation par défaut
-13. [Pattern Matching](./13-pattern-matching.md) - Filtrage par motif
+10. [Records](./10-records.md) - Objets immuables et comparaison par valeur
+11. [Primary Constructors](./11-primary-constructors.md) - Syntaxe concise C# 12+
+12. [Nullable Reference Types](./12-nullable-reference-types.md) - Sécurité du null
+13. [Propriétés Init-Only](./13-proprietes-init.md) - Immutabilité contrôlée
+14. [Interfaces Modernes](./14-interfaces-modernes.md) - Implémentation par défaut
+15. [Pattern Matching](./15-pattern-matching.md) - Filtrage par motif
 
 ## Synthèse visuelle de la structure OO
 
