@@ -5,6 +5,7 @@ Le polymorphisme est l'un des concepts les plus puissants de la programmation or
 ::: tip 🎯 Ce que vous allez apprendre
 - Comprendre le concept de polymorphisme et son intérêt
 - Utiliser `virtual` et `override` pour redéfinir des comportements
+- Comprendre le masquage de méthode avec `new` et ses pièges
 - Comprendre la différence entre type déclaré et type réel
 - Créer des classes et méthodes abstraites
 - Appliquer le polymorphisme dans des cas pratiques
@@ -116,9 +117,121 @@ void FaireParler(Animal animal)
 
 ### `virtual` et `override`
 
-Pour activer le polymorphisme, on utilise :
-- **`virtual`** : dans la classe de base, indique qu'une méthode peut être redéfinie
-- **`override`** : dans la classe dérivée, redéfinit le comportement
+#### Le comportement par défaut : pas de polymorphisme
+
+Par défaut en C#, toutes les méthodes utilisent la **liaison statique** : c'est le **type déclaré** de la variable (celui écrit à gauche du `=`) qui détermine quelle méthode est appelée, **indépendamment** du type réel de l'objet. Autrement dit, le compilateur décide *à l'avance* quelle méthode appeler.
+
+Voyons ce que cela donne sans polymorphisme :
+
+```csharp
+class Animal
+{
+    public void EmettreSon()  // Pas de virtual !
+    {
+        Console.WriteLine("Son générique");
+    }
+}
+
+class Chien : Animal
+{
+    public void EmettreSon()  // Même nom, mais pas d'override
+    {
+        Console.WriteLine("Wouf !");
+    }
+}
+```
+
+```csharp
+Chien rex = new Chien();
+rex.EmettreSon();  // "Wouf !" ← OK, le type déclaré est Chien
+
+Animal animal = new Chien();  // Le type déclaré est Animal
+animal.EmettreSon();  // "Son générique" ← ⚠️ Pas le résultat attendu !
+```
+
+Même si l'objet est *réellement* un `Chien`, c'est la méthode d'`Animal` qui est appelée, car la variable est de type `Animal`. Le polymorphisme **n'est pas actif** : le programme ne "regarde" pas quel est le vrai type de l'objet.
+
+::: tip 🚗 Analogie
+Imaginez un parking de véhicules. Sur chaque place est écrit "Véhicule" (le type déclaré). Quand on appuie sur le bouton "Démarrer" du parking, il exécute toujours le démarrage générique d'un véhicule, même si la place contient une Ferrari. Sans polymorphisme, le parking ne sait pas qu'il y a une Ferrari — il voit seulement "Véhicule".
+:::
+
+#### Activer le polymorphisme : `virtual`
+
+Le mot-clé `virtual` dans la classe de base dit au compilateur : *"cette méthode peut être redéfinie par mes classes dérivées, et quand elle sera appelée, il faudra chercher la bonne version à l'exécution"*.
+
+C'est le **premier verrou** à lever pour activer le polymorphisme.
+
+```csharp
+class Animal
+{
+    // Le mot-clé virtual active la liaison dynamique
+    public virtual void EmettreSon()
+    {
+        Console.WriteLine("Son générique");
+    }
+}
+```
+
+En ajoutant `virtual`, on informe C# que cette méthode participe au mécanisme de polymorphisme. À l'exécution, le programme ira chercher la "bonne" version de la méthode en fonction du type réel de l'objet.
+
+::: info Ce que `virtual` ne fait PAS
+`virtual` ne rend pas la redéfinition **obligatoire**. Les classes dérivées *peuvent* redéfinir la méthode, mais elles n'y sont pas forcées. Si elles ne la redéfinissent pas, le comportement par défaut (celui de la classe de base) est utilisé.
+:::
+
+#### Redéfinir le comportement : `override`
+
+Le mot-clé `override` dans la classe dérivée dit : *"je fournis une nouvelle implémentation pour cette méthode virtuelle héritée"*. C'est le **second verrou**.
+
+```csharp
+class Chien : Animal
+{
+    // override = "je remplace le comportement hérité"
+    public override void EmettreSon()
+    {
+        Console.WriteLine("Wouf !");
+    }
+}
+```
+
+Quand C# rencontre un appel à `EmettreSon()` sur un objet qui est *réellement* un `Chien`, il utilise cette version redéfinie au lieu de la version de base.
+
+::: warning Contraintes de `override`
+Pour pouvoir écrire `override`, la méthode dans la classe de base **doit** être `virtual`, `abstract` ou elle-même `override`. On ne peut pas faire `override` sur une méthode "normale" — le compilateur refusera.
+:::
+
+#### Les deux verrous ensemble
+
+`virtual` et `override` fonctionnent **en tandem**. L'un ne va pas sans l'autre :
+
+| Situation | Résultat |
+|-----------|----------|
+| `virtual` dans la base + `override` dans la dérivée | ✅ Polymorphisme actif |
+| Pas de `virtual` + `override` dans la dérivée | ❌ Erreur de compilation |
+| `virtual` dans la base + pas de `override` dans la dérivée | ⚠️ Comportement par défaut (pas de redéfinition) |
+| Pas de `virtual` + même nom dans la dérivée | ⚠️ Masquage (`new` implicite), pas de polymorphisme |
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                  virtual + override = polymorphisme                 │
+│                                                                     │
+│   Classe de base                   Classe dérivée                   │
+│   ┌──────────────────┐             ┌──────────────────┐             │
+│   │ Animal           │             │ Chien : Animal   │             │
+│   │                  │             │                  │             │
+│   │  virtual         │───────────> │  override        │             │
+│   │  EmettreSon()    │  "je peux   │  EmettreSon()    │             │
+│   │  {Son générique} │  être       │  {Wouf !}        │             │
+│   │                  │  redéfinie" │                  │             │
+│   └──────────────────┘             └──────────────────┘             │
+│                                                                     │
+│   🔑 virtual = "verrou 1"         🔑 override = "verrou 2"         │
+│   Autorise la redéfinition         Fournit la nouvelle version      │
+│                                                                     │
+│   Les DEUX sont nécessaires pour que le polymorphisme fonctionne.   │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+#### Exemple complet avec `virtual` et `override`
 
 ```csharp
 class Animal
@@ -130,13 +243,13 @@ class Animal
         Nom = nom;
     }
     
-    // Méthode virtuelle : CAN être redéfinie
+    // Méthode virtuelle : PEUT être redéfinie par les classes dérivées
     public virtual void EmettreSon()
     {
         Console.WriteLine($"{Nom} émet un son.");
     }
     
-    // Méthode non virtuelle : NE PEUT PAS être redéfinie
+    // Méthode non virtuelle : NE PEUT PAS être redéfinie (polymorphisme impossible)
     public void Respirer()
     {
         Console.WriteLine($"{Nom} respire.");
@@ -147,7 +260,7 @@ class Chien : Animal
 {
     public Chien(string nom) : base(nom) { }
     
-    // Redéfinition du comportement
+    // override : redéfinit le comportement de EmettreSon()
     public override void EmettreSon()
     {
         Console.WriteLine($"{Nom} aboie : Wouf ! Wouf !");
@@ -174,6 +287,8 @@ class Vache : Animal
     }
 }
 ```
+
+Remarquez que `Respirer()` n'est **pas** `virtual`. Même si une classe dérivée voulait changer cette méthode, le polymorphisme ne fonctionnerait pas pour elle.
 
 ### Démonstration du polymorphisme
 
@@ -202,6 +317,12 @@ Marguerite meugle : Meuh !
 Max aboie : Wouf ! Wouf !
 ```
 
+Ici, la variable `animal` est de type `Animal` (type déclaré), mais grâce à `virtual` + `override`, C# regarde le **type réel** de chaque objet pour choisir la bonne méthode. C'est le polymorphisme en action !
+
+::: info 💡 Pourquoi ça marche ?
+À chaque itération de la boucle, `animal` pointe vers un objet différent (un `Chien`, un `Chat`, une `Vache`...). Grâce au mécanisme `virtual`/`override`, l'appel `animal.EmettreSon()` ne se résout pas à la compilation (sinon ce serait toujours `Animal.EmettreSon()`), mais **à l'exécution**, en fonction du type réel de l'objet pointé.
+:::
+
 ::: warning Liaison dynamique
 Le choix de la méthode à appeler se fait **à l'exécution** (runtime), pas à la compilation. C'est ce qu'on appelle la **liaison dynamique** ou **late binding**.
 :::
@@ -210,15 +331,19 @@ Le choix de la méthode à appeler se fait **à l'exécution** (runtime), pas à
 
 ### Type déclaré vs Type réel
 
-Une variable a deux types :
-- **Type déclaré (statique)** : le type utilisé dans la déclaration
-- **Type réel (dynamique)** : le type de l'objet effectivement créé
+Chaque variable objet en C# possède **deux types** qu'il est essentiel de distinguer :
+
+- **Type déclaré (statique)** : le type écrit à **gauche** du `=` lors de la déclaration. C'est le type que le **compilateur** connaît.
+- **Type réel (dynamique)** : le type de l'objet effectivement créé avec `new`, à **droite** du `=`. C'est le type que le **runtime** (l'exécution) connaît.
 
 ```csharp
 Animal monAnimal = new Chien("Rex");
 //     ↑                    ↑
 //  Type déclaré      Type réel
+//  (compilateur)     (exécution)
 ```
+
+Le type déclaré peut être un **parent** du type réel (grâce à l'héritage), mais **jamais l'inverse**. On peut mettre un `Chien` dans une variable `Animal`, mais pas un `Animal` dans une variable `Chien`.
 
 ```mermaid
 flowchart LR
@@ -233,12 +358,18 @@ flowchart LR
     V -->|référence| O
 ```
 
+::: tip 🎭 Analogie
+Un acteur (type réel) peut porter un costume (type déclaré). L'acteur est un `Chien`, mais il porte le costume `Animal`. Quand on lui demande de jouer (appel de méthode), c'est l'acteur qui joue — pas le costume !
+:::
+
 ### Quelle méthode est appelée ?
 
-| Type de méthode | Méthode appelée selon |
-|-----------------|----------------------|
-| Non virtuelle | Type **déclaré** (compilation) |
-| Virtuelle/override | Type **réel** (exécution) |
+La distinction est simple mais **cruciale** :
+
+| Type de méthode | Méthode appelée selon | Mécanisme |
+|-----------------|----------------------|-----------|
+| Non virtuelle | Type **déclaré** (compilation) | Liaison statique |
+| `virtual` + `override` | Type **réel** (exécution) | Liaison dynamique |
 
 ```csharp
 class Animal
@@ -270,14 +401,24 @@ class Chien : Animal
 
 ```csharp
 Animal animal = new Chien();
+//     ↑ déclaré       ↑ réel
 
-animal.Virtuelle();      // "Chien.Virtuelle" (type réel)
-animal.NonVirtuelle();   // "Animal.NonVirtuelle" (type déclaré)
+animal.Virtuelle();      // "Chien.Virtuelle"      → regarde le type RÉEL (Chien)
+animal.NonVirtuelle();   // "Animal.NonVirtuelle"   → regarde le type DÉCLARÉ (Animal)
 
 Chien chien = new Chien();
-chien.Virtuelle();       // "Chien.Virtuelle"
-chien.NonVirtuelle();    // "Chien.NonVirtuelle"
+//    ↑ déclaré = réel
+
+chien.Virtuelle();       // "Chien.Virtuelle"       → type réel = Chien
+chien.NonVirtuelle();    // "Chien.NonVirtuelle"     → type déclaré = Chien
 ```
+
+::: details 🔍 Analyse ligne par ligne
+1. `animal.Virtuelle()` → `Virtuelle` est `virtual` dans `Animal` et `override` dans `Chien`. Le type réel est `Chien` → **"Chien.Virtuelle"**
+2. `animal.NonVirtuelle()` → `NonVirtuelle` n'est pas `virtual` dans `Animal`. Le type déclaré est `Animal` → **"Animal.NonVirtuelle"** (le `new` dans `Chien` est ignoré)
+3. `chien.Virtuelle()` → Même résultat car le type déclaré ET réel sont `Chien` → **"Chien.Virtuelle"**
+4. `chien.NonVirtuelle()` → Le type déclaré est `Chien`, donc on utilise `Chien.NonVirtuelle` → **"Chien.NonVirtuelle"**
+:::
 
 ## Appeler la méthode de base avec `base`
 
@@ -337,6 +478,247 @@ class VoitureElectrique : Vehicule
         Console.WriteLine("Mode électrique activé.");
     }
 }
+```
+
+## Le mot-clé `new` : masquage de méthode
+
+### Le problème : que se passe-t-il sans `override` ?
+
+Que se passe-t-il si une classe dérivée définit une méthode qui porte le même nom qu'une méthode de sa classe de base, **sans** utiliser `override` ?
+
+```csharp
+class Animal
+{
+    public virtual void EmettreSon()
+    {
+        Console.WriteLine("Son générique");
+    }
+}
+
+class Chien : Animal
+{
+    // Pas de override → le compilateur émet un avertissement !
+    public void EmettreSon()
+    {
+        Console.WriteLine("Wouf !");
+    }
+}
+```
+
+Le compilateur C# affiche un **avertissement** (CS0114) :
+
+> *'Chien.EmettreSon()' hides inherited member 'Animal.EmettreSon()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.*
+
+Le compilateur vous demande de **clarifier votre intention** :
+- Vouliez-vous **redéfinir** la méthode ? → Ajoutez `override`
+- Vouliez-vous **masquer** la méthode volontairement ? → Ajoutez `new`
+
+### `new` : le masquage explicite
+
+Le mot-clé `new` placé devant une méthode indique que vous **masquez volontairement** la méthode de la classe de base. Ce n'est **pas** du polymorphisme — c'est comme si deux méthodes indépendantes portaient le même nom par coïncidence.
+
+```csharp
+class Animal
+{
+    public virtual void EmettreSon()
+    {
+        Console.WriteLine("Son générique");
+    }
+}
+
+class Chien : Animal
+{
+    // Masquage explicite : "je sais ce que je fais"
+    public new void EmettreSon()
+    {
+        Console.WriteLine("Wouf !");
+    }
+}
+```
+
+::: warning Attention
+`new` ne fait **pas** disparaître la méthode de la classe de base. Il la **cache** du point de vue de la classe dérivée. La méthode de base reste accessible via une variable de type `Animal`.
+:::
+
+### La différence cruciale : `override` vs `new`
+
+Voici un exemple qui met en évidence la différence fondamentale :
+
+```csharp
+class Animal
+{
+    public virtual void EmettreSon()
+    {
+        Console.WriteLine("Son générique");
+    }
+}
+
+class Chat : Animal
+{
+    public override void EmettreSon()  // Redéfinition
+    {
+        Console.WriteLine("Miaou !");
+    }
+}
+
+class Chien : Animal
+{
+    public new void EmettreSon()  // Masquage
+    {
+        Console.WriteLine("Wouf !");
+    }
+}
+```
+
+```csharp
+// Déclaration avec le type de base Animal
+Animal chat = new Chat();
+Animal chien = new Chien();
+
+chat.EmettreSon();   // "Miaou !"        → override : le type RÉEL (Chat) est utilisé ✅
+chien.EmettreSon();  // "Son générique"  → new : le type DÉCLARÉ (Animal) est utilisé ❌
+
+// Déclaration avec le type réel
+Chat chat2 = new Chat();
+Chien chien2 = new Chien();
+
+chat2.EmettreSon();  // "Miaou !"  → Même résultat
+chien2.EmettreSon(); // "Wouf !"   → Ici ça fonctionne car le type déclaré EST Chien
+```
+
+::: danger ⚠️ Le piège du `new`
+Le masquage semble "fonctionner" quand on utilise directement le type dérivé (`Chien chien2 = new Chien()`). Mais dès qu'on manipule l'objet via une variable de type parent (`Animal chien = new Chien()`), **le masquage est ignoré** et c'est la méthode de la classe de base qui est appelée. C'est exactement le scénario courant du polymorphisme (tableaux d'`Animal`, paramètres de type `Animal`, etc.).
+:::
+
+| | `override` | `new` |
+|--|-----------|-------|
+| **Mécanisme** | Redéfinition (polymorphisme) | Masquage (hiding) |
+| **Méthode appelée** | Selon le type **réel** de l'objet | Selon le type **déclaré** de la variable |
+| **Liaison** | Dynamique (à l'exécution) | Statique (à la compilation) |
+| **Polymorphisme** | ✅ Oui | ❌ Non |
+| **Usage recommandé** | Cas standard | Cas rares et spécifiques |
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│               override vs new : le résultat                    │
+│                                                                │
+│   Animal a1 = new Chat();     Animal a2 = new Chien();         │
+│   a1.EmettreSon();            a2.EmettreSon();                 │
+│                                                                │
+│   ┌──────────────┐            ┌──────────────┐                 │
+│   │   Chat       │            │   Chien      │                 │
+│   │  (override)  │            │    (new)     │                 │
+│   ├──────────────┤            ├──────────────┤                 │
+│   │ "Miaou !"    │ ← appelé   │ "Wouf !"     │ ← ignoré        │
+│   └──────┬───────┘            └──────┬───────┘                 │
+│          │                           │                         │
+│   ┌──────┴────────┐           ┌──────┴────────┐                │
+│   │   Animal      │           │   Animal      │                │
+│   ├───────────────┤           ├───────────────┤                │
+│   │"Son générique"│← ignoré   │"Son générique"│← appelé        │
+│   └───────────────┘           └───────────────┘                │
+│                                                                │
+│   override → suit le type réel    new → suit le type déclaré   │
+└────────────────────────────────────────────────────────────────┘
+```
+
+### `new virtual` : un nouveau point de départ
+
+On peut combiner `new` et `virtual` pour créer une **nouvelle chaîne** de polymorphisme, indépendante de celle de la classe de base :
+
+```csharp
+class A
+{
+    public virtual void M() { Console.WriteLine("A.M"); }
+}
+
+class B : A
+{
+    // Masque A.M ET crée un nouveau point de départ virtual
+    public new virtual void M() { Console.WriteLine("B.M"); }
+}
+
+class C : B
+{
+    // Ce override s'applique à B.M, pas à A.M
+    public override void M() { Console.WriteLine("C.M"); }
+}
+```
+
+```csharp
+A obj1 = new C();
+B obj2 = new C();
+C obj3 = new C();
+
+obj1.M();  // "A.M"  → La chaîne virtual/override de A ne trouve pas de override (B utilise new)
+obj2.M();  // "C.M"  → La chaîne virtual/override de B trouve l'override dans C
+obj3.M();  // "C.M"  → Idem
+```
+
+::: info Explication
+- `obj1` est de type déclaré `A`. C# cherche un `override` de `A.M` dans la hiérarchie : `B` utilise `new` (pas `override`), donc la chaîne s'arrête. C'est `A.M` qui est appelé.
+- `obj2` est de type déclaré `B`. C# cherche un `override` de `B.M` : `C` fait `override`, donc c'est `C.M` qui est appelé.
+:::
+
+::: danger ⚠️ Attention
+Une méthode déclarée avec `new` (sans `virtual`) **n'est pas virtuelle**. Si une classe dérive et veut redéfinir cette méthode, elle ne peut **pas** utiliser `override` :
+
+```csharp
+class B : A
+{
+    public new void M() { Console.WriteLine("B.M"); }  // Pas virtual !
+}
+
+class C : B
+{
+    public override void M() { }  // ❌ Erreur : B.M n'est pas virtual
+}
+```
+
+Pour permettre la redéfinition dans les sous-classes, il faut écrire `public new virtual void M()`.
+:::
+
+### Quand utiliser `new` ?
+
+::: tip 💡 Règle pratique
+Dans **99% des cas**, vous devriez utiliser `override` plutôt que `new`. Le masquage avec `new` est rarement la bonne solution et mène souvent à des comportements surprenants.
+:::
+
+Le `new` est utile dans des situations très spécifiques :
+- Quand une bibliothèque externe ajoute une méthode qui entre en **conflit de nom** avec votre code existant
+- Quand vous voulez délibérément **changer le type de retour** d'une méthode (ce que `override` ne permet pas)
+- Quand vous devez maintenir la compatibilité avec du code existant sans modifier la classe de base
+
+### Algorithme de résolution : method lookup
+
+Voici l'algorithme de résolution du method lookup dans le cas d'un appel de méthode :
+
+```csharp
+A v = new B();
+// A : type statique
+// B() : type dynamique
+v.m1();
+```
+
+
+```
+si m1 n'est pas virtual ou override dans A alors
+    Fin de la recherche : A >> m1
+sinon
+    on cherche la méthode m1 dans B.
+    
+    si trouvée et marquée 'override' alors
+        si aucun 'new' pour m1 n'apparaît dans la hiérarchie entre A (non compris) et B (compris) alors
+            Fin de la recherche : B >> m1
+        sinon
+            // Cet override s'applique à la méthode 'new', pas à celle de A.
+            // On l'ignore pour cette recherche.
+            on recommence la recherche sur la classe de base de B
+        fin si
+    sinon
+        on recommence la recherche sur la classe de base de B
+    fin si
+fin si
 ```
 
 ## Classes et méthodes abstraites
@@ -1352,8 +1734,9 @@ calc.ExecuterSerie(10, 3,
 | Concept | Description |
 |---------|-------------|
 | **Polymorphisme** | Capacité d'un même code à se comporter différemment selon le type |
-| **`virtual`** | Permet à une méthode d'être redéfinie |
-| **`override`** | Redéfinit une méthode virtuelle |
+| **`virtual`** | Déclare qu'une méthode peut être redéfinie (active la liaison dynamique) |
+| **`override`** | Redéfinit une méthode virtuelle (polymorphisme actif) |
+| **`new`** | Masque une méthode héritée sans polymorphisme (liaison statique) |
 | **`abstract`** | Méthode sans corps, doit être implémentée |
 | **Classe abstraite** | Ne peut pas être instanciée, sert de modèle |
 | **`sealed override`** | Empêche les redéfinitions ultérieures |
@@ -1361,8 +1744,9 @@ calc.ExecuterSerie(10, 3,
 
 ::: tip Points clés à retenir
 1. Utilisez `virtual` + `override` pour activer le polymorphisme
-2. Les classes abstraites définissent des contrats incomplets
-3. Le polymorphisme permet d'écrire du code générique et extensible
-4. Préférez le polymorphisme aux cascades de `if/switch` sur les types
-5. Le pattern matching (`is`, `switch`) permet d'interagir avec le type réel quand nécessaire
+2. `new` masque une méthode sans polymorphisme — préférez `override` dans 99% des cas
+3. Les classes abstraites définissent des contrats incomplets
+4. Le polymorphisme permet d'écrire du code générique et extensible
+5. Préférez le polymorphisme aux cascades de `if/switch` sur les types
+6. Le pattern matching (`is`, `switch`) permet d'interagir avec le type réel quand nécessaire
 :::
