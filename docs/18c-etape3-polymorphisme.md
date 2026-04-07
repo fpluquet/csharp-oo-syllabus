@@ -498,7 +498,7 @@ La solution : séparer notre code en **couches distinctes** selon le pattern **M
 - **Vue** : l'affichage (console, graphique, web...)
 - **Contrôleur** : la coordination entre utilisateur et modèle
 
-Rendez-vous à l'[Étape 4 : Architecture MVC](./16d-etape4-mvc.md) !
+Rendez-vous à l'[Étape 4 : Architecture MVC](./18d-etape4-mvc.md) !
 
 ## 📝 Code complet de l'étape 3
 

@@ -72,7 +72,7 @@ En C#, il existe plusieurs formes de polymorphisme :
 | **Surcharge de méthodes** | Plusieurs méthodes avec le même nom mais des paramètres différents | Method overloading |
 | **Polymorphisme paramétrique** | Types génériques | Generics `<T>` |
 
-Ce chapitre se concentre principalement sur le **polymorphisme d'héritage** et le **polymorphisme d'interface**.
+Ce chapitre se concentre principalement sur le **polymorphisme d'héritage**. Le **polymorphisme d'interface** est abordé ici brièvement et détaillé dans le chapitre [Interfaces](./09-interfaces.md). Le **polymorphisme paramétrique** est couvert dans le chapitre [Classes et Interfaces Génériques](./10-generiques.md).
 
 ## Polymorphisme d'héritage
 
@@ -878,7 +878,7 @@ class ChienDeChasse : Chien
 
 ## Polymorphisme d'interface
 
-Les interfaces permettent un autre type de polymorphisme : des classes sans lien d'héritage peuvent implémenter la même interface.
+Les interfaces permettent un autre type de polymorphisme : des classes sans lien d'héritage peuvent implémenter la même interface. Nous introduisons ici le concept ; le chapitre [Interfaces](./09-interfaces.md) couvre le sujet en profondeur (définition, découplage, interfaces .NET courantes).
 
 ```csharp
 interface IDessinable

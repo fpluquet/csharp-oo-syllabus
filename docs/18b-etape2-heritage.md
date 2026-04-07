@@ -533,7 +533,7 @@ Que se passe-t-il si on veut une interface graphique au lieu de la console ? Il 
 
 ## 🎯 Vers l'étape 3
 
-Rendez-vous à l'[Étape 3 : Polymorphisme](./16c-etape3-polymorphisme.md) pour comprendre comment C# choisit dynamiquement la bonne méthode !
+Rendez-vous à l'[Étape 3 : Polymorphisme](./18c-etape3-polymorphisme.md) pour comprendre comment C# choisit dynamiquement la bonne méthode !
 
 ## 📝 Code complet de l'étape 2
 

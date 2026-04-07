@@ -259,7 +259,7 @@ Les **itérateurs** permettent de définir comment une classe peut être parcour
 
 ### L'interface IEnumerable
 
-Pour être parcourable avec `foreach`, une classe doit implémenter `IEnumerable<T>` :
+Pour être parcourable avec `foreach`, une classe doit implémenter `IEnumerable<T>` (présentée dans le chapitre [Interfaces](./09-interfaces.md)). L'interface générique `IEnumerable<T>` est détaillée dans le chapitre [Classes et Interfaces Génériques](./10-generiques.md).
 
 ```csharp
 using System.Collections;
@@ -382,6 +382,8 @@ foreach (long fib in Fibonacci(10))
 ```
 
 ### Collection personnalisée complète
+
+Cet exemple combine interfaces génériques (voir chapitre [Génériques](./10-generiques.md)) et itérateurs :
 
 ```csharp
 class ListeTriee<T> : IEnumerable<T> where T : IComparable<T>

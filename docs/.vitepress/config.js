@@ -61,30 +61,32 @@ export default withMermaid(defineConfig({
           { text: 'Passage de Paramètres', link: '/06-passage-parametres' },
           { text: 'Héritage', link: '/07-heritage' },
           { text: 'Polymorphisme', link: '/08-polymorphisme' },
-          { text: 'Concepts Avancés', link: '/09-concepts-avances' },
+          { text: 'Interfaces', link: '/09-interfaces' },
+          { text: 'Classes et Interfaces Génériques', link: '/10-generiques' },
+          { text: 'Concepts Avancés', link: '/11-concepts-avances' },
         ]
       },
       {
         text: 'Partie II - C# Moderne',
         collapsed: false,
         items: [
-          { text: 'Records', link: '/10-records' },
-          { text: 'Primary Constructors', link: '/11-primary-constructors' },
-          { text: 'Nullable Reference Types', link: '/12-nullable-reference-types' },
-          { text: 'Propriétés Init-Only', link: '/13-proprietes-init' },
-          { text: 'Interfaces Modernes', link: '/14-interfaces-modernes' },
-          { text: 'Pattern Matching', link: '/15-pattern-matching' },
+          { text: 'Records', link: '/12-records' },
+          { text: 'Primary Constructors', link: '/13-primary-constructors' },
+          { text: 'Nullable Reference Types', link: '/14-nullable-reference-types' },
+          { text: 'Propriétés Init-Only', link: '/15-proprietes-init' },
+          { text: 'Interfaces Modernes', link: '/16-interfaces-modernes' },
+          { text: 'Pattern Matching', link: '/17-pattern-matching' },
         ]
       },
       {
         text: 'Partie III - Projet Fil Rouge',
         collapsed: false,
         items: [
-          { text: 'Jeu d\'Échecs en Console', link: '/16-projet-echecs' },
-          { text: '├─ Étape 1 : Encapsulation', link: '/16a-etape1-encapsulation' },
-          { text: '├─ Étape 2 : Héritage', link: '/16b-etape2-heritage' },
-          { text: '├─ Étape 3 : Polymorphisme', link: '/16c-etape3-polymorphisme' },
-          { text: '└─ Étape 4 : Architecture MVC', link: '/16d-etape4-mvc' },
+          { text: 'Jeu d\'Échecs en Console', link: '/18-projet-echecs' },
+          { text: '├─ Étape 1 : Encapsulation', link: '/18a-etape1-encapsulation' },
+          { text: '├─ Étape 2 : Héritage', link: '/18b-etape2-heritage' },
+          { text: '├─ Étape 3 : Polymorphisme', link: '/18c-etape3-polymorphisme' },
+          { text: '└─ Étape 4 : Architecture MVC', link: '/18d-etape4-mvc' },
         ]
       },
       {

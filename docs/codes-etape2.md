@@ -51,4 +51,4 @@ Cette étape couvre :
 - La spécialisation des comportements
 - La polymorphie (implicite)
 
-Retour à la [Partie III - Projet Fil Rouge](/16-projet-echecs)
+Retour à la [Partie III - Projet Fil Rouge](/18-projet-echecs)

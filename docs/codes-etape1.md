@@ -46,4 +46,4 @@ Cette étape couvre :
 - La logique avec `switch`
 - Les problèmes de cette approche (switch géant)
 
-Retour à la [Partie III - Projet Fil Rouge](/16-projet-echecs)
+Retour à la [Partie III - Projet Fil Rouge](/18-projet-echecs)

@@ -64,10 +64,10 @@ Chaque étape résout un problème identifié à l'étape précédente :
 
 | Étape | Objectif | Problème résolu |
 |-------|----------|-----------------|
-| [Étape 1](./16a-etape1-encapsulation.md) | Créer les objets de base | - |
-| [Étape 2](./16b-etape2-heritage.md) | Spécialiser chaque pièce | Switch géant illisible |
-| [Étape 3](./16c-etape3-polymorphisme.md) | Manipuler les pièces uniformément | Code dupliqué, rigidité |
-| [Étape 4](./16d-etape4-mvc.md) | Séparer les responsabilités | Code mélangé, non testable |
+| [Étape 1](./18a-etape1-encapsulation.md) | Créer les objets de base | - |
+| [Étape 2](./18b-etape2-heritage.md) | Spécialiser chaque pièce | Switch géant illisible |
+| [Étape 3](./18c-etape3-polymorphisme.md) | Manipuler les pièces uniformément | Code dupliqué, rigidité |
+| [Étape 4](./18d-etape4-mvc.md) | Séparer les responsabilités | Code mélangé, non testable |
 
 ::: warning ⚠️ Approche pédagogique importante
 Nous allons **volontairement** commencer par un code imparfait. L'objectif est de **comprendre les problèmes** avant d'apprendre les solutions. 
@@ -121,4 +121,4 @@ Si ces concepts ne sont pas clairs, relisez les chapitres correspondants du syll
 
 ## C'est parti !
 
-Rendez-vous à l'[Étape 1 : Encapsulation et objets de base](./16a-etape1-encapsulation.md) pour commencer notre aventure !
+Rendez-vous à l'[Étape 1 : Encapsulation et objets de base](./18a-etape1-encapsulation.md) pour commencer notre aventure !

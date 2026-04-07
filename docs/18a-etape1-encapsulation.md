@@ -532,7 +532,7 @@ L'idée est simple : au lieu d'avoir UNE classe `Piece` qui gère tous les cas, 
 - Une classe **abstraite** `Piece` qui définit ce que toute pièce doit pouvoir faire
 - Des classes **spécialisées** (`Tour`, `Cavalier`, `Fou`, etc.) qui implémentent leur propre logique
 
-Rendez-vous à l'[Étape 2 : Héritage et Abstraction](./16b-etape2-heritage.md) !
+Rendez-vous à l'[Étape 2 : Héritage et Abstraction](./18b-etape2-heritage.md) !
 
 ## 📝 Code complet de l'étape 1
 

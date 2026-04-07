@@ -36,7 +36,7 @@ Les **implémentations par défaut** permettent de faire évoluer une interface 
 
 ## Rappel : qu'est-ce qu'une interface ?
 
-Une **interface** définit un **contrat** que les classes doivent respecter. Traditionnellement, une interface ne contient que des signatures de méthodes, sans implémentation.
+Le chapitre [Interfaces](./09-interfaces.md) a introduit les bases : une **interface** définit un **contrat** que les classes doivent respecter. Traditionnellement, une interface ne contient que des signatures de méthodes, sans implémentation.
 
 ```csharp
 // Interface traditionnelle

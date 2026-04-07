@@ -15,6 +15,8 @@ Ce cours suppose que vous maîtrisez les bases de C# : variables, types, opérat
 - Comprendre et appliquer les principes de la programmation orientée objet
 - Concevoir et implémenter des classes en C#
 - Utiliser l'encapsulation pour protéger vos données
+- Définir et implémenter des interfaces pour découpler votre code
+- Créer des classes et interfaces génériques réutilisables
 - Maîtriser les fonctionnalités modernes de C# (records, pattern matching, etc.)
 
 ## Contenu du cours
@@ -29,20 +31,22 @@ Ce cours suppose que vous maîtrisez les bases de C# : variables, types, opérat
 6. [Passage de Paramètres](./06-passage-parametres.md) - ref, out et paramètres optionnels
 7. [Héritage](./07-heritage.md) - Réutilisation de code et hiérarchies
 8. [Polymorphisme](./08-polymorphisme.md) - Comportements polymorphes et virtuels
-9. [Concepts Avancés](./09-concepts-avances.md) - Surcharge d'opérateurs, itérateurs
+9. [Interfaces](./09-interfaces.md) - Contrats, découplage et interfaces .NET
+10. [Classes et Interfaces Génériques](./10-generiques.md) - Réutilisabilité et sécurité de type
+11. [Concepts Avancés](./11-concepts-avances.md) - Surcharge d'opérateurs, itérateurs
 
 ### Partie II - Extensions Modernes de l'OO (C# 8.0 à 12.0)
 
-10. [Records](./10-records.md) - Objets immuables et comparaison par valeur
-11. [Primary Constructors](./11-primary-constructors.md) - Syntaxe concise C# 12+
-12. [Nullable Reference Types](./12-nullable-reference-types.md) - Sécurité du null
-13. [Propriétés Init-Only](./13-proprietes-init.md) - Immutabilité contrôlée
-14. [Interfaces Modernes](./14-interfaces-modernes.md) - Implémentation par défaut
-15. [Pattern Matching](./15-pattern-matching.md) - Filtrage par motif
+12. [Records](./12-records.md) - Objets immuables et comparaison par valeur
+13. [Primary Constructors](./13-primary-constructors.md) - Syntaxe concise C# 12+
+14. [Nullable Reference Types](./14-nullable-reference-types.md) - Sécurité du null
+15. [Propriétés Init-Only](./15-proprietes-init.md) - Immutabilité contrôlée
+16. [Interfaces Modernes](./16-interfaces-modernes.md) - Implémentation par défaut
+17. [Pattern Matching](./17-pattern-matching.md) - Filtrage par motif
 
 ### Partie III - Projet Fil Rouge
 
-16. [Projet : Jeu d'Échecs](./16-projet-echecs.md) - Application complète des concepts OO
+18. [Projet : Jeu d'Échecs](./18-projet-echecs.md) - Application complète des concepts OO
 
 ## Synthèse visuelle de la structure OO
 
@@ -64,6 +68,10 @@ mindmap
     Contrat
       Interfaces
       Classes abstraites
+    Réutilisabilité
+      Héritage
+      Génériques
+      Polymorphisme
     Visibilité
       public
       private

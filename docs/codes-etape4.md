@@ -96,4 +96,4 @@ Cette étape couvre :
 ✅ Alternance des joueurs  
 ✅ Gestion des erreurs  
 
-Retour à la [Partie III - Projet Fil Rouge](/16-projet-echecs)
+Retour à la [Partie III - Projet Fil Rouge](/18-projet-echecs)
