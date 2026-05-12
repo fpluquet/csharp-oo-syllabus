@@ -186,7 +186,7 @@ class Fraction
 | Catégorie | Opérateurs |
 |-----------|-----------|
 | Arithmétiques | `+`, `-`, `*`, `/`, `%` |
-| Unaires | `+`, `-`, `!`, `~`, `++`, `--`, `true`, `false` |
+| Unaires | `+`, `-`, `!`, `~`, `++`, `--` |
 | Comparaison | `==`, `!=`, `<`, `>`, `<=`, `>=` |
 | Bit à bit | `&`, `|`, `^`, `<<`, `>>` |
 
